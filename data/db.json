@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "weekLabel": "30 Haz – 6 Tem",
+    "totalVolume7d": 1184500000,
+    "casinoCount": 128,
+    "streamerCount": 6
+  },
+  "casinos": [
+    {
+      "id": "c1",
+      "name": "AceHouse",
+      "slug": "acehouse",
+      "share7d": 55.2,
+      "volume7d": 653900000,
+      "deposits7d": 41200,
+      "trustScore": 88,
+      "sentiment": 100,
+      "chains": [
+        "ETH",
+        "TRX",
+        "SOL",
+        "BTC"
+      ]
+    },
+    {
+      "id": "c2",
+      "name": "RocketBet",
+      "slug": "rocketbet",
+      "share7d": 8.1,
+      "volume7d": 95900000,
+      "deposits7d": 18300,
+      "trustScore": 82,
+      "sentiment": 80,
+      "chains": [
+        "SOL",
+        "TRX",
+        "ETH"
+      ]
+    },
+    {
+      "id": "c3",
+      "name": "NovaSpin",
+      "slug": "novaspin",
+      "share7d": 4.6,
+      "volume7d": 54500000,
+      "deposits7d": 9700,
+      "trustScore": 80,
+      "sentiment": 60,
+      "chains": [
+        "TRX",
+        "ETH"
+      ]
+    },
+    {
+      "id": "c4",
+      "name": "DuelDice",
+      "slug": "dueldice",
+      "share7d": 3.9,
+      "volume7d": 46200000,
+      "deposits7d": 7400,
+      "trustScore": 76,
+      "sentiment": 80,
+      "chains": [
+        "ETH",
+        "BTC"
+      ]
+    },
+    {
+      "id": "c5",
+      "name": "ShuffleKing",
+      "slug": "shuffleking",
+      "share7d": 3.1,
+      "volume7d": 36700000,
+      "deposits7d": 6900,
+      "trustScore": 79,
+      "sentiment": 77,
+      "chains": [
+        "SOL",
+        "ETH"
+      ]
+    },
+    {
+      "id": "c6",
+      "name": "LuckyOrbit",
+      "slug": "luckyorbit",
+      "share7d": 2.4,
+      "volume7d": 28400000,
+      "deposits7d": 5100,
+      "trustScore": 71,
+      "sentiment": 40,
+      "chains": [
+        "TRX"
+      ]
+    },
+    {
+      "id": "c7",
+      "name": "PrimeWager",
+      "slug": "primewager",
+      "share7d": 1.8,
+      "volume7d": 21300000,
+      "deposits7d": 4400,
+      "trustScore": 74,
+      "sentiment": 72,
+      "chains": [
+        "ETH",
+        "TRX"
+      ]
+    },
+    {
+      "id": "c8",
+      "name": "VoltCasino",
+      "slug": "voltcasino",
+      "share7d": 1.2,
+      "volume7d": 14200000,
+      "deposits7d": 3100,
+      "trustScore": 68,
+      "sentiment": 66,
+      "chains": [
+        "BTC",
+        "ETH"
+      ]
+    }
+  ],
+  "streamers": [
+    {
+      "id": "s1",
+      "handle": "spinmasterTR",
+      "platform": "Kick",
+      "casino": "AceHouse",
+      "title": "SABAH KASASI — %200 bonus !kasa",
+      "viewers": 8600,
+      "live": true,
+      "slug": "spinmastertr",
+      "rating": 5.0,
+      "reviewCount": 1,
+      "bio": ""
+    },
+    {
+      "id": "s2",
+      "handle": "betcrewHQ",
+      "platform": "Kick",
+      "casino": "AceHouse",
+      "title": "$100.000 BONUS AÇILIŞI — CANLI",
+      "viewers": 1400,
+      "live": true,
+      "slug": "betcrewhq",
+      "rating": 0,
+      "reviewCount": 0,
+      "bio": ""
+    },
+    {
+      "id": "s3",
+      "handle": "docdegen",
+      "platform": "Kick",
+      "casino": "DuelDice",
+      "title": "SLOT GECESİ — !doc !bonus",
+      "viewers": 1250,
+      "live": true,
+      "slug": "docdegen",
+      "rating": 2.0,
+      "reviewCount": 1,
+      "bio": ""
+    },
+    {
+      "id": "s4",
+      "handle": "gabbywins",
+      "platform": "Twitch",
+      "casino": "AceHouse",
+      "title": "KISA YAYIN — yarın turnuva izleme partisi",
+      "viewers": 1100,
+      "live": true,
+      "slug": "gabbywins",
+      "rating": 0,
+      "reviewCount": 0,
+      "bio": ""
+    },
+    {
+      "id": "s5",
+      "handle": "rollqueen",
+      "platform": "Kick",
+      "casino": "RocketBet",
+      "title": "GECE RULETİ — !cekilis",
+      "viewers": 940,
+      "live": true,
+      "slug": "rollqueen",
+      "rating": 0,
+      "reviewCount": 0,
+      "bio": ""
+    },
+    {
+      "id": "s6",
+      "handle": "cryptohustler",
+      "platform": "Twitch",
+      "casino": "NovaSpin",
+      "title": "BONUS AVI x50 hedef",
+      "viewers": 720,
+      "live": false,
+      "slug": "cryptohustler",
+      "rating": 0,
+      "reviewCount": 0,
+      "bio": ""
+    }
+  ],
+  "transactions": [
+    {
+      "id": "t1",
+      "casino": "AceHouse",
+      "chain": "ETH",
+      "type": "deposit",
+      "amountUsd": 29500000,
+      "tx": "0x8f3a…c21d",
+      "ts": "2026-07-06T09:12:00Z"
+    },
+    {
+      "id": "t2",
+      "casino": "RocketBet",
+      "chain": "SOL",
+      "type": "deposit",
+      "amountUsd": 1480000,
+      "tx": "5Gq7…mP2x",
+      "ts": "2026-07-06T08:44:00Z"
+    },
+    {
+      "id": "t3",
+      "casino": "PrimeWager",
+      "chain": "TRX",
+      "type": "deposit",
+      "amountUsd": 1340000,
+      "tx": "TXk9…a4Lp",
+      "ts": "2026-07-06T08:31:00Z"
+    },
+    {
+      "id": "t4",
+      "casino": "AceHouse",
+      "chain": "TRX",
+      "type": "withdrawal",
+      "amountUsd": 29800000,
+      "tx": "TQm2…z8Rd",
+      "ts": "2026-07-06T07:58:00Z"
+    },
+    {
+      "id": "t5",
+      "casino": "NovaSpin",
+      "chain": "TRX",
+      "type": "withdrawal",
+      "amountUsd": 1490000,
+      "tx": "TWc4…p1Ke",
+      "ts": "2026-07-06T07:40:00Z"
+    },
+    {
+      "id": "t6",
+      "casino": "ShuffleKing",
+      "chain": "ETH",
+      "type": "deposit",
+      "amountUsd": 596000,
+      "tx": "0x2b7e…9fa3",
+      "ts": "2026-07-06T07:22:00Z"
+    },
+    {
+      "id": "t7",
+      "casino": "DuelDice",
+      "chain": "BTC",
+      "type": "withdrawal",
+      "amountUsd": 1010000,
+      "tx": "bc1q…7hs2",
+      "ts": "2026-07-06T06:55:00Z"
+    },
+    {
+      "id": "t8",
+      "casino": "LuckyOrbit",
+      "chain": "TRX",
+      "type": "deposit",
+      "amountUsd": 412000,
+      "tx": "TNy8…c3Vq",
+      "ts": "2026-07-06T06:31:00Z"
+    }
+  ],
+  "hotWallets": [
+    {
+      "id": "w1",
+      "casino": "AceHouse",
+      "balanceUsd": 168400000
+    },
+    {
+      "id": "w2",
+      "casino": "NovaSpin",
+      "balanceUsd": 83100000
+    },
+    {
+      "id": "w3",
+      "casino": "RocketBet",
+      "balanceUsd": 35800000
+    },
+    {
+      "id": "w4",
+      "casino": "DuelDice",
+      "balanceUsd": 29200000
+    },
+    {
+      "id": "w5",
+      "casino": "ShuffleKing",
+      "balanceUsd": 21000000
+    }
+  ],
+  "reviews": [
+    {
+      "id": "r1",
+      "casino": "AceHouse",
+      "author": "oyuncu_34",
+      "rating": 5,
+      "text": "Çekimler 10 dakikada geldi, destek hızlı.",
+      "verified": true,
+      "ts": "2026-07-05T14:00:00Z",
+      "helpful": 0,
+      "notHelpful": 0
+    },
+    {
+      "id": "r2",
+      "casino": "RocketBet",
+      "author": "whale_hunter",
+      "rating": 4,
+      "text": "Bonus çevrim şartları makul, arayüz iyi.",
+      "verified": true,
+      "ts": "2026-07-04T19:30:00Z",
+      "helpful": 0,
+      "notHelpful": 0
+    },
+    {
+      "id": "r3",
+      "casino": "LuckyOrbit",
+      "author": "anon77",
+      "rating": 2,
+      "text": "KYC süreci çok uzun sürdü.",
+      "verified": false,
+      "ts": "2026-07-03T11:15:00Z",
+      "helpful": 0,
+      "notHelpful": 0
+    },
+    {
+      "id": "r4",
+      "casino": "AceHouse",
+      "author": "megawin_ist",
+      "rating": 5,
+      "text": "6 aydır oynuyorum, hiç ödeme sorunu yaşamadım.",
+      "verified": true,
+      "helpful": 12,
+      "notHelpful": 1
+    },
+    {
+      "id": "r5",
+      "casino": "NovaSpin",
+      "author": "deneme55",
+      "rating": 3,
+      "text": "Bonuslar iyi ama canlı destek yavaş.",
+      "verified": false,
+      "helpful": 4,
+      "notHelpful": 2
+    },
+    {
+      "id": "r6",
+      "casino": "DuelDice",
+      "author": "kripto_ahmet",
+      "rating": 4,
+      "text": "USDT çekimi 15 dakikada geldi, memnunum.",
+      "verified": true,
+      "helpful": 8,
+      "notHelpful": 0
+    }
+  ],
+  "wallets": [
+    {
+      "id": "wl1",
+      "casino": "AceHouse",
+      "chain": "ETH",
+      "address": "0x0000000000000000000000000000000000000000"
+    },
+    {
+      "id": "wl2",
+      "casino": "RocketBet",
+      "chain": "TRX",
+      "address": "T0000000000000000000000000000000000"
+    }
+  ],
+  "kickChannels": [
+    {
+      "id": "kc1",
+      "slug": "spinmastertr"
+    },
+    {
+      "id": "kc2",
+      "slug": "betcrewhq"
+    },
+    {
+      "id": "kc3",
+      "slug": "docdegen"
+    },
+    {
+      "id": "kc4",
+      "slug": "rollqueen"
+    }
+  ],
+  "activityLog": [],
+  "snapshots": [],
+  "streamerReviews": [
+    {
+      "id": "sr1",
+      "streamer": "spinmasterTR",
+      "author": "izleyici_07",
+      "rating": 5,
+      "text": "Yayınları çok eğlenceli, bonusları şeffaf gösteriyor.",
+      "approved": true,
+      "helpful": 6,
+      "notHelpful": 0,
+      "ts": "2026-07-05T10:00:00Z"
+    },
+    {
+      "id": "sr2",
+      "streamer": "docdegen",
+      "author": "kumarci_x",
+      "rating": 2,
+      "text": "Çok agresif bahis yapıyor, yeni başlayanlar için kötü örnek.",
+      "approved": true,
+      "helpful": 4,
+      "notHelpful": 1,
+      "ts": "2026-07-04T18:00:00Z"
+    }
+  ]
+}
