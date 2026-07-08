@@ -1,5 +1,5 @@
 import { readDB, fmtUsd } from "../../../lib/store";
-import { seriesForCasino } from "../../../lib/snapshot";
+import { seriesForCasino, casinoMetrics, casinoRank } from "../../../lib/snapshot";
 import { AreaChart } from "../../../components/chart";
 import { TrustBadge } from "../../../components/ui";
 import { ReviewCard } from "../../../components/reviews";
@@ -26,6 +26,8 @@ export default async function CasinoDetail({ params }) {
   if (!c) notFound();
 
   const series = seriesForCasino(db, c.name);
+  const metrics = casinoMetrics(db, c.name);
+  const rank = casinoRank(db, c.name);
   const streamers = db.streamers.filter((s) => s.casino === c.name).sort((a, b) => (b.viewers || 0) - (a.viewers || 0));
   const txs = db.transactions.filter((t) => t.casino === c.name).slice(0, 8);
   const reviews = db.reviews
@@ -37,8 +39,8 @@ export default async function CasinoDetail({ params }) {
       <div>
         <Link href="/casinos" className="text-xs font-mono text-mint hover:underline">← Tüm casinolar</Link>
         <div className="flex items-center gap-3 mt-4">
-          <span className="w-12 h-12 rounded-full bg-felt grid place-items-center text-mint text-lg font-bold shrink-0">
-            {c.name.slice(0, 2).toUpperCase()}
+          <span className="w-12 h-12 rounded-full bg-felt grid place-items-center text-mint text-lg font-bold shrink-0 overflow-hidden">
+            {c.logo ? <img src={c.logo} alt={c.name} className="w-full h-full object-cover" /> : c.name.slice(0, 2).toUpperCase()}
           </span>
           <div>
             <h1 className="text-3xl font-bold text-slate-50">{c.name}</h1>
@@ -52,8 +54,26 @@ export default async function CasinoDetail({ params }) {
         </div>
       </div>
 
+      <div className="grid grid-cols-3 gap-3">
+        <div className="panel p-4 text-center">
+          <div className="panel-title mb-1">Zirve (ATH)</div>
+          <div className="font-mono text-lg text-gold">{fmtUsd(metrics.ath)}</div>
+        </div>
+        <div className="panel p-4 text-center">
+          <div className="panel-title mb-1">Ortalama</div>
+          <div className="font-mono text-lg text-slate-200">{fmtUsd(metrics.avg30)}</div>
+        </div>
+        <div className="panel p-4 text-center">
+          <div className="panel-title mb-1">Sıralama</div>
+          <div className="font-mono text-lg text-mint">{rank ? `#${rank}` : "—"}</div>
+        </div>
+      </div>
+
       <section className="panel p-4">
         <AreaChart data={series} label="Hacim geçmişi" color="#E8B84B" height={140} />
+        {metrics.dataPoints > 0 && (
+          <p className="text-[10px] font-mono text-mute mt-2">{metrics.dataPoints} snapshot noktasından hesaplandı.</p>
+        )}
       </section>
 
       <div className="grid md:grid-cols-2 gap-4">

@@ -3,8 +3,8 @@ import { useEffect, useState, useMemo } from "react";
 import { BRAND } from "../../lib/brand";
 
 const TABS = [
-  { key: "casinos", label: "Casinolar", fields: ["name", "slug", "share7d", "volume7d", "deposits7d", "trustScore", "sentiment"], main: "name" },
-  { key: "streamers", label: "Yayıncılar", fields: ["handle", "slug", "platform", "casino", "bio", "title", "viewers", "live"], main: "handle" },
+  { key: "casinos", label: "Casinolar", fields: ["name", "slug", "website", "logo", "description", "share7d", "volume7d", "deposits7d", "trustScore", "sentiment"], main: "name" },
+  { key: "streamers", label: "Yayıncılar", fields: ["handle", "slug", "platform", "casino", "bio", "channelUrl", "telegram", "twitter", "youtube", "title", "viewers", "live"], main: "handle" },
   { key: "transactions", label: "İşlemler", fields: ["casino", "chain", "type", "amountUsd", "tx"], main: "casino" },
   { key: "reviews", label: "Casino Yorumları", fields: ["casino", "author", "rating", "text", "verified", "approved"], main: "author" },
   { key: "streamerReviews", label: "Yayıncı Yorumları", fields: ["streamer", "author", "rating", "text", "approved"], main: "author" },
@@ -114,6 +114,9 @@ function NavBtn({ active, onClick, children }) {
 function Overview({ stats, reload, onJump }) {
   const [running, setRunning] = useState("");
   const [runMsg, setRunMsg] = useState("");
+  const [wAddr, setWAddr] = useState("");
+  const [wChain, setWChain] = useState("ETH");
+  const [wState, setWState] = useState({ busy: false, err: "", related: null });
 
   async function runCron(which) {
     setRunning(which); setRunMsg("");
@@ -125,6 +128,23 @@ function Overview({ stats, reload, onJump }) {
       reload();
     } catch (e) { setRunMsg("Hata: " + e.message); }
     setRunning("");
+  }
+
+  async function exploreWallet() {
+    if (!wAddr.trim()) return;
+    setWState({ busy: true, err: "", related: null });
+    try {
+      const res = await fetch("/api/admin/wallet-explore", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ address: wAddr.trim(), chain: wChain })
+      });
+      const data = await res.json();
+      if (!res.ok) { setWState({ busy: false, err: data.error || "Keşif başarısız.", related: null }); return; }
+      setWState({ busy: false, err: "", related: data.related });
+    } catch (e) {
+      setWState({ busy: false, err: e.message, related: null });
+    }
   }
 
   if (!stats) return <div className="text-mute text-sm font-mono">Yükleniyor…</div>;
@@ -175,6 +195,63 @@ function Overview({ stats, reload, onJump }) {
       </div>
 
       <div className="panel p-4">
+        <div className="panel-title mb-1">Cüzdan keşfi</div>
+        <p className="text-xs text-mute mb-3">
+          Bir sıcak cüzdan adresi gir; en çok stablecoin transferi yaptığı diğer adresleri gör. Casinonun cüzdan kümesini haritalamak için kullan.
+        </p>
+        <div className="flex gap-2">
+          <select value={wChain} onChange={(e) => setWChain(e.target.value)}
+            className="bg-ink border border-edge rounded-md px-2 py-2 text-sm font-mono">
+            <option value="ETH">ETH</option>
+            <option value="TRX">TRX</option>
+          </select>
+          <input value={wAddr} onChange={(e) => setWAddr(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && exploreWallet()}
+            placeholder="0x… veya T…"
+            className="flex-1 bg-ink border border-edge rounded-md px-2 py-2 text-sm font-mono focus:outline-none focus:border-mint/60" />
+          <button onClick={exploreWallet} disabled={wState.busy}
+            className="bg-edge hover:bg-edge/70 text-slate-200 text-sm rounded-md px-4 disabled:opacity-50">
+            {wState.busy ? "…" : "Keşfet"}
+          </button>
+        </div>
+        {wState.err && <p className="text-chip text-xs mt-2 font-mono">{wState.err}</p>}
+        {wState.related && (
+          <div className="mt-3 overflow-x-auto">
+            {wState.related.length === 0 ? (
+              <p className="text-xs text-mute">İlişkili adres bulunamadı (stablecoin transferi yok ya da adres boş).</p>
+            ) : (
+              <table className="w-full text-xs font-mono">
+                <thead>
+                  <tr className="text-left text-mute border-b border-edge">
+                    <th className="p-2">İlişkili adres</th>
+                    <th className="p-2">İşlem</th>
+                    <th className="p-2">Toplam hacim</th>
+                    <th className="p-2" />
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-edge">
+                  {wState.related.map((r) => (
+                    <tr key={r.address}>
+                      <td className="p-2 text-slate-300">{r.short}</td>
+                      <td className="p-2 text-mute">{r.count}</td>
+                      <td className="p-2 text-gold">${r.volume.toLocaleString("tr-TR")}</td>
+                      <td className="p-2 text-right">
+                        <button onClick={() => { setWAddr(r.address); }}
+                          className="text-mint hover:underline">bunu keşfet</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+            <p className="text-[10px] font-mono text-mute mt-2">
+              En çok hacimli adresler genelde casinonun kendi cold/işlemci cüzdanlarıdır. "bunu keşfet" ile zinciri genişletebilirsin.
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div className="panel p-4">
         <div className="panel-title mb-3">Aktivite günlüğü</div>
         <ul className="divide-y divide-edge">
           {(stats.log || []).map((l) => (
@@ -209,6 +286,37 @@ function Manager({ tab, onChange, onLogout }) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(new Set());
   const [loading, setLoading] = useState(true);
+  const [importUrl, setImportUrl] = useState("");
+  const [importState, setImportState] = useState({ busy: false, msg: "", err: "" });
+
+  async function runImport() {
+    if (!importUrl.trim()) return;
+    setImportState({ busy: true, msg: "", err: "" });
+    try {
+      const res = await fetch("/api/admin/import-casino", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: importUrl })
+      });
+      const data = await res.json();
+      if (res.status === 401) return onLogout();
+      if (!res.ok) { setImportState({ busy: false, msg: "", err: data.error || "Çekilemedi." }); return; }
+      const d = data.data;
+      // formu ön-doldur (mevcut boş alanlar dolar, kullanıcı düzenleyebilir)
+      setForm((f) => ({
+        ...f,
+        name: d.name || f.name || "",
+        slug: d.slug || f.slug || "",
+        website: d.website || "",
+        logo: d.logo || "",
+        description: d.description || ""
+      }));
+      const chainNote = d.chains?.length ? ` · Zincirler: ${d.chains.join(", ")}` : "";
+      setImportState({ busy: false, msg: `Çekildi: ${d.name}${chainNote}. Formu kontrol edip cüzdan verisini ayrıca ekle.`, err: "" });
+    } catch (e) {
+      setImportState({ busy: false, msg: "", err: e.message });
+    }
+  }
 
   async function load() {
     setLoading(true);
@@ -286,6 +394,31 @@ function Manager({ tab, onChange, onLogout }) {
       {/* form */}
       <div className="panel p-4 h-fit">
         <h2 className="panel-title mb-3">{editId ? "Kaydı düzenle" : "Yeni kayıt ekle"}</h2>
+
+        {tab.key === "casinos" && !editId && (
+          <div className="mb-4 pb-4 border-b border-edge">
+            <label className="text-[10px] font-mono uppercase text-mute">URL'den içe aktar</label>
+            <div className="flex gap-2 mt-1">
+              <input
+                value={importUrl}
+                onChange={(e) => setImportUrl(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && runImport()}
+                placeholder="ornek-casino.com"
+                className="flex-1 bg-ink border border-edge rounded-md px-2 py-1.5 text-sm font-mono focus:outline-none focus:border-mint/60"
+              />
+              <button onClick={runImport} disabled={importState.busy}
+                className="bg-edge hover:bg-edge/70 text-slate-200 text-xs rounded-md px-3 disabled:opacity-50">
+                {importState.busy ? "…" : "Çek"}
+              </button>
+            </div>
+            {importState.err && <p className="text-chip text-[11px] mt-2">{importState.err}</p>}
+            {importState.msg && <p className="text-mint text-[11px] mt-2 leading-relaxed">{importState.msg}</p>}
+            <p className="text-[10px] font-mono text-mute mt-2">
+              Casino sitesinin adresini gir; isim, logo, açıklama ve zincirler otomatik dolar. Cüzdan adresini ayrıca "İzlenen Cüzdanlar"dan ekle.
+            </p>
+          </div>
+        )}
+
         <div className="space-y-2">
           {tab.fields.map((f) => (
             <div key={f}>

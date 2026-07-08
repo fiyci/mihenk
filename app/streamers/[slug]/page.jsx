@@ -1,5 +1,8 @@
 import { readDB, fmtViewers } from "../../../lib/store";
 import { StreamerReviewForm, StreamerReviewCard } from "../../../components/streamerReviews";
+import { streamerMetrics, streamerRank, streamerHeatmap, streamerSeries } from "../../../lib/snapshot";
+import { Heatmap } from "../../../components/heatmap";
+import { AreaChart } from "../../../components/chart";
 import { BRAND } from "../../../lib/brand";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -20,6 +23,11 @@ export default async function StreamerDetail({ params }) {
   const db = await readDB();
   const s = db.streamers.find((x) => x.slug === params.slug || x.handle.toLowerCase() === params.slug);
   if (!s) notFound();
+
+  const metrics = streamerMetrics(db, s.handle);
+  const rank = streamerRank(db, s.handle);
+  const heatmap = streamerHeatmap(db, s.handle);
+  const series = streamerSeries(db, s.handle);
 
   const reviews = (db.streamerReviews || [])
     .filter((r) => r.streamer === s.handle && r.approved !== false)
@@ -47,7 +55,62 @@ export default async function StreamerDetail({ params }) {
         </div>
         {s.bio && <p className="text-sm text-mute mt-3">{s.bio}</p>}
         {s.title && <p className="text-sm text-slate-400 mt-2 font-mono">Son yayın: "{s.title}"</p>}
+        {(s.channelUrl || s.telegram || s.twitter || s.youtube) && (
+          <div className="flex flex-wrap gap-2 mt-4">
+            {s.channelUrl && (
+              <a href={s.channelUrl} target="_blank" rel="noopener noreferrer nofollow"
+                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
+                ▶ Yayın kanalı
+              </a>
+            )}
+            {s.telegram && (
+              <a href={s.telegram} target="_blank" rel="noopener noreferrer nofollow"
+                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
+                ✈ Telegram
+              </a>
+            )}
+            {s.twitter && (
+              <a href={s.twitter} target="_blank" rel="noopener noreferrer nofollow"
+                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
+                𝕏 Twitter
+              </a>
+            )}
+            {s.youtube && (
+              <a href={s.youtube} target="_blank" rel="noopener noreferrer nofollow"
+                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
+                ▶ YouTube
+              </a>
+            )}
+          </div>
+        )}
       </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        <div className="panel p-4 text-center">
+          <div className="panel-title mb-1">Zirve izleyici</div>
+          <div className="font-mono text-lg text-gold">{fmtViewers(metrics.peak)}</div>
+        </div>
+        <div className="panel p-4 text-center">
+          <div className="panel-title mb-1">Ortalama</div>
+          <div className="font-mono text-lg text-slate-200">{fmtViewers(metrics.avg)}</div>
+        </div>
+        <div className="panel p-4 text-center">
+          <div className="panel-title mb-1">Sıralama</div>
+          <div className="font-mono text-lg text-mint">{rank ? `#${rank}` : "—"}</div>
+        </div>
+      </div>
+
+      <section className="panel p-4">
+        <AreaChart data={series} label="İzleyici geçmişi" color="#2FBF8F" height={130} />
+        {metrics.dataPoints > 0 && (
+          <p className="text-[10px] font-mono text-mute mt-2">{metrics.dataPoints} snapshot noktasından hesaplandı.</p>
+        )}
+      </section>
+
+      <section className="panel p-4">
+        <h2 className="panel-title mb-3">Yayın ısı haritası · gün × saat (UTC)</h2>
+        <Heatmap grid={heatmap.grid} max={heatmap.max} hasData={heatmap.hasData} />
+      </section>
 
       <div className="grid md:grid-cols-2 gap-6 items-start">
         <StreamerReviewForm streamerHandle={s.handle} />
