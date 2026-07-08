@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { fmtUsd, fmtViewers } from "../lib/store";
+import { Sparkline } from "./sparkline";
 
 export function Ticker({ transactions }) {
   const items = [...transactions, ...transactions];
@@ -52,14 +53,17 @@ export function CasinoRows({ casinos, limit }) {
   return (
     <ol className="divide-y divide-edge">
       {rows.map((c, i) => (
-        <li key={c.id} className="flex items-center gap-3 py-2.5">
+        <li key={c.id} className="flex items-center gap-3 py-2.5 row-hover rounded-md px-1 -mx-1">
           <span className="font-mono text-xs text-mute w-4">{i + 1}</span>
-          <span className="w-7 h-7 rounded-full bg-felt grid place-items-center text-mint text-xs font-bold">
-            {c.name.slice(0, 2).toUpperCase()}
+          <span className="w-7 h-7 rounded-full bg-felt grid place-items-center text-mint text-xs font-bold overflow-hidden shrink-0">
+            {c.logo ? <img src={c.logo} alt="" className="w-full h-full avatar" /> : c.name.slice(0, 2).toUpperCase()}
           </span>
-          <span className="flex-1 text-sm text-slate-200">{c.name}</span>
-          <span className="font-mono text-xs text-mute">{c.share7d}%</span>
-          <span className="font-mono text-sm text-gold">{fmtUsd(c.volume7d)}</span>
+          <Link href={`/casinos/${c.slug || c.name.toLowerCase()}`} className="flex-1 text-sm text-slate-200 hover:text-mint transition min-w-0 truncate">
+            {c.name}
+          </Link>
+          <Sparkline name={c.name} width={70} height={24} />
+          <span className="font-mono text-xs text-mute w-12 text-right hidden sm:inline">{c.share7d}%</span>
+          <span className="font-mono text-sm text-gold w-20 text-right">{fmtUsd(c.volume7d)}</span>
         </li>
       ))}
     </ol>
@@ -71,18 +75,23 @@ export function StreamerRows({ streamers, limit }) {
   return (
     <ul className="divide-y divide-edge">
       {rows.map((s) => (
-        <li key={s.id} className="py-2.5 flex items-start gap-3">
-          <span className={`mt-1.5 w-2 h-2 rounded-full ${s.live ? "bg-mint pulse-dot" : "bg-mute"}`} />
+        <li key={s.id} className="py-2.5 flex items-center gap-3 row-hover rounded-md px-1 -mx-1">
+          <span className={`relative w-9 h-9 rounded-full bg-felt grid place-items-center text-mint text-xs font-bold overflow-hidden shrink-0 avatar-ring ${s.live ? "live" : ""}`}>
+            {s.avatar ? <img src={s.avatar} alt="" className="w-full h-full avatar" /> : s.handle.slice(0, 2).toUpperCase()}
+          </span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 text-sm">
-              <Link href={`/streamers/${s.slug || s.handle.toLowerCase()}`} className="font-medium text-slate-200 hover:text-mint transition">{s.handle}</Link>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-edge text-mute">{s.platform}</span>
-              {s.casino && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-felt/60 text-mint">{s.casino}</span>}
-              {s.rating > 0 && <span className="text-[10px] font-mono text-gold">★ {s.rating}</span>}
+              <Link href={`/streamers/${s.slug || s.handle.toLowerCase()}`} className="font-medium text-slate-200 hover:text-mint transition truncate">{s.handle}</Link>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-edge text-mute shrink-0">{s.platform}</span>
+              {s.casino && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-felt/60 text-mint shrink-0 hidden sm:inline">{s.casino}</span>}
+              {s.rating > 0 && <span className="text-[10px] font-mono text-gold shrink-0">★ {s.rating}</span>}
             </div>
             <p className="text-xs text-mute truncate">{s.title}</p>
           </div>
-          <span className="font-mono text-xs text-slate-300">{fmtViewers(s.viewers)} izleyici</span>
+          <span className="font-mono text-xs text-slate-300 shrink-0 flex items-center gap-1.5">
+            {s.live && <span className="w-1.5 h-1.5 rounded-full bg-mint pulse-dot" />}
+            {fmtViewers(s.viewers)}
+          </span>
         </li>
       ))}
     </ul>

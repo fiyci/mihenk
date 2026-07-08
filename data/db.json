@@ -20,7 +20,8 @@
         "TRX",
         "SOL",
         "BTC"
-      ]
+      ],
+      "logo": ""
     },
     {
       "id": "c2",
@@ -35,7 +36,8 @@
         "SOL",
         "TRX",
         "ETH"
-      ]
+      ],
+      "logo": ""
     },
     {
       "id": "c3",
@@ -49,7 +51,8 @@
       "chains": [
         "TRX",
         "ETH"
-      ]
+      ],
+      "logo": ""
     },
     {
       "id": "c4",
@@ -63,7 +66,8 @@
       "chains": [
         "ETH",
         "BTC"
-      ]
+      ],
+      "logo": ""
     },
     {
       "id": "c5",
@@ -77,7 +81,8 @@
       "chains": [
         "SOL",
         "ETH"
-      ]
+      ],
+      "logo": ""
     },
     {
       "id": "c6",
@@ -90,7 +95,8 @@
       "sentiment": 40,
       "chains": [
         "TRX"
-      ]
+      ],
+      "logo": ""
     },
     {
       "id": "c7",
@@ -104,7 +110,8 @@
       "chains": [
         "ETH",
         "TRX"
-      ]
+      ],
+      "logo": ""
     },
     {
       "id": "c8",
@@ -118,7 +125,8 @@
       "chains": [
         "BTC",
         "ETH"
-      ]
+      ],
+      "logo": ""
     }
   ],
   "streamers": [
@@ -131,9 +139,14 @@
       "viewers": 8600,
       "live": true,
       "slug": "spinmastertr",
-      "rating": 5.0,
+      "rating": 5,
       "reviewCount": 1,
-      "bio": ""
+      "bio": "",
+      "telegram": "https://t.me/spinmastertr",
+      "twitter": "https://x.com/spinmastertr",
+      "youtube": "",
+      "channelUrl": "https://kick.com/spinmastertr",
+      "avatar": ""
     },
     {
       "id": "s2",
@@ -146,7 +159,12 @@
       "slug": "betcrewhq",
       "rating": 0,
       "reviewCount": 0,
-      "bio": ""
+      "bio": "",
+      "telegram": "",
+      "twitter": "",
+      "youtube": "",
+      "channelUrl": "",
+      "avatar": ""
     },
     {
       "id": "s3",
@@ -157,9 +175,14 @@
       "viewers": 1250,
       "live": true,
       "slug": "docdegen",
-      "rating": 2.0,
+      "rating": 2,
       "reviewCount": 1,
-      "bio": ""
+      "bio": "",
+      "telegram": "",
+      "twitter": "",
+      "youtube": "",
+      "channelUrl": "",
+      "avatar": ""
     },
     {
       "id": "s4",
@@ -172,7 +195,12 @@
       "slug": "gabbywins",
       "rating": 0,
       "reviewCount": 0,
-      "bio": ""
+      "bio": "",
+      "telegram": "",
+      "twitter": "",
+      "youtube": "",
+      "channelUrl": "",
+      "avatar": ""
     },
     {
       "id": "s5",
@@ -185,7 +213,12 @@
       "slug": "rollqueen",
       "rating": 0,
       "reviewCount": 0,
-      "bio": ""
+      "bio": "",
+      "telegram": "",
+      "twitter": "",
+      "youtube": "",
+      "channelUrl": "",
+      "avatar": ""
     },
     {
       "id": "s6",
@@ -198,7 +231,12 @@
       "slug": "cryptohustler",
       "rating": 0,
       "reviewCount": 0,
-      "bio": ""
+      "bio": "",
+      "telegram": "",
+      "twitter": "",
+      "youtube": "",
+      "channelUrl": "",
+      "avatar": ""
     }
   ],
   "transactions": [
