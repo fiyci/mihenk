@@ -1,5 +1,8 @@
 import { readDB, fmtUsd } from "../lib/store";
-import { Ticker, StatCard, Panel, CasinoRows, StreamerRows, Donut, TrustBadge } from "../components/ui";
+import { Ticker, Panel, CasinoRows, StreamerRows, Donut, TrustBadge } from "../components/ui";
+import { AnimatedStat } from "../components/animated";
+import { ExploreMenu } from "../components/exploreMenu";
+import { movingCasinos } from "../lib/snapshot";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +15,15 @@ export default async function Home() {
   const liveStreamers = db.streamers.filter((s) => s.live).sort((a, b) => b.viewers - a.viewers);
   const wallets = [...db.hotWallets].sort((a, b) => b.balanceUsd - a.balanceUsd);
   const walletTotal = wallets.reduce((s, w) => s + w.balanceUsd, 0);
+  // yükselen/düşen casinolar; snapshot yoksa share7d'den yaklaşık türet
+  let moving = movingCasinos(db, 6);
+  if (!moving.length) {
+    moving = [...db.casinos]
+      .map((c) => ({ name: c.name, change: Math.round((c.sentiment - 50) / 2), now: c.volume7d }))
+      .filter((m) => m.change !== 0)
+      .sort((a, b) => Math.abs(b.change) - Math.abs(a.change))
+      .slice(0, 6);
+  }
 
   return (
     <div>
@@ -26,17 +38,26 @@ export default async function Home() {
           Bu hafta {db.meta.casinoCount} casino ve {db.meta.streamerCount.toLocaleString("tr-TR")} yayıncı üzerinden{" "}
           <span className="text-gold font-mono">{fmtUsd(db.meta.totalVolume7d)}</span> hacim takip ediliyor.
         </p>
+        <div className="flex flex-wrap items-center gap-2 mt-4 text-[10px] font-mono">
+          <span className="inline-flex items-center gap-1.5 border border-edge rounded-full px-2.5 py-1 text-mute">
+            <span className="w-1.5 h-1.5 rounded-full bg-mint pulse-dot" /> Otomatik güncellenir · her 5 dk
+          </span>
+          <span className="border border-edge rounded-full px-2.5 py-1 text-mute">Kaynak: on-chain + topluluk + Twitch/Kick</span>
+          <span className="border border-edge rounded-full px-2.5 py-1 text-mute">Yalnızca bilgilendirme amaçlıdır</span>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-8">
-          <StatCard label="Casinolar · canlı" value={db.meta.casinoCount} />
-          <StatCard label="Yayıncılar · takipte" value={db.meta.streamerCount.toLocaleString("tr-TR")} />
-          <StatCard label="Yatırımlar · 7g" value={fmtUsd(db.meta.totalVolume7d)} accent="text-gold" />
-          <StatCard label="Zirvedeki casino · 7g" value={topCasinos[0]?.name || "—"} accent="text-mint" />
+          <AnimatedStat label="Casinolar · canlı" numeric={db.meta.casinoCount} format="tr" delay={1} />
+          <AnimatedStat label="Yayıncılar · takipte" numeric={db.meta.streamerCount} format="tr" delay={2} />
+          <AnimatedStat label="Yatırımlar · 7g" numeric={db.meta.totalVolume7d} format="usd" accent="text-gold" delay={3} />
+          <AnimatedStat label="Zirvedeki casino · 7g" value={topCasinos[0]?.name || "—"} accent="text-mint" delay={4} />
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-4">
-        <Panel title="7g hacme göre casinolar" action={{ href: "/casinos", label: "Tümü" }}>
-          <CasinoRows casinos={topCasinos} limit={5} />
+      <div className="max-w-6xl mx-auto px-4 flex gap-6">
+        <ExploreMenu />
+        <section className="flex-1 grid md:grid-cols-2 gap-4 min-w-0">
+          <Panel title="7g hacme göre casinolar" action={{ href: "/casinos", label: "Tümü" }}>
+            <CasinoRows casinos={topCasinos} limit={5} />
         </Panel>
 
         <Panel title="Canlı kumar yayıncıları" action={{ href: "/streamers", label: "Tümü" }}>
@@ -100,6 +121,27 @@ export default async function Home() {
             ))}
           </ul>
         </Panel>
+        </section>
+      </div>
+
+      <section className="max-w-6xl mx-auto px-4 mt-10">
+        <div className="panel p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="panel-title">Hareketli casinolar · 7g değişim</h3>
+            <Link href="/casinos" className="text-xs font-mono text-mint hover:underline">Tümü →</Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            {moving.map((m) => (
+              <Link key={m.name} href={`/casinos/${m.name.toLowerCase()}`}
+                className="flex items-center justify-between bg-ink rounded-md px-3 py-2.5 row-hover">
+                <span className="text-sm text-slate-200 truncate">{m.name}</span>
+                <span className={`font-mono text-xs shrink-0 ml-2 ${m.change >= 0 ? "text-mint" : "text-chip"}`}>
+                  {m.change >= 0 ? "▲" : "▼"} {Math.abs(m.change)}%
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="max-w-6xl mx-auto px-4 mt-10">

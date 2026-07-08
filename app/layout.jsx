@@ -9,9 +9,11 @@ export const metadata = {
 
 const navLinks = [
   { href: "/casinos", label: "Casinolar" },
+  { href: "/compare", label: "Karşılaştır" },
   { href: "/blockchain", label: "Blockchain" },
   { href: "/streamers", label: "Yayıncılar" },
-  { href: "/sentiment", label: "Sentiment" }
+  { href: "/sentiment", label: "Sentiment" },
+  { href: "/araclar", label: "Araçlar" }
 ];
 
 export default function RootLayout({ children }) {
@@ -43,12 +45,20 @@ export default function RootLayout({ children }) {
                 </Link>
               ))}
             </nav>
-            <Link
-              href="/admin"
-              className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-mute hover:text-mint hover:border-mint/50 transition"
-            >
-              Admin
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/for-operators"
+                className="hidden sm:inline text-xs font-mono border border-mint/40 rounded-md px-3 py-1.5 text-mint hover:bg-mint/10 transition"
+              >
+                Operatörler için
+              </Link>
+              <Link
+                href="/admin"
+                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-mute hover:text-mint hover:border-mint/50 transition"
+              >
+                Admin
+              </Link>
+            </div>
           </div>
         </header>
         <main className="flex-1">{children}</main>
@@ -68,7 +78,7 @@ export default function RootLayout({ children }) {
               ))}
             </div>
             <div className="flex flex-col gap-2">
-              <Link href="/admin" className="hover:text-slate-100">Operatör Girişi</Link>
+              <Link href="/for-operators" className="hover:text-slate-100">Operatörler için</Link>
               <span>{BRAND.email}</span>
               <span className="font-mono text-xs">© 2026 {BRAND.name}</span>
             </div>
