@@ -6,6 +6,7 @@ import { AreaChart } from "../../../components/chart";
 import { BRAND } from "../../../lib/brand";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Radio, Send, Twitter, Youtube } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,7 @@ export default async function StreamerDetail({ params }) {
         <div className="flex items-center gap-3 mt-4">
           <span className={`w-3 h-3 rounded-full ${s.live ? "bg-mint" : "bg-mute"} shrink-0`} />
           <div className="flex-1">
-            <h1 className="text-3xl font-bold text-slate-50">{s.handle}</h1>
+            <h1 className="display-xl text-4xl md:text-5xl text-bone">{s.handle}</h1>
             <div className="flex items-center gap-2 mt-1 text-xs font-mono text-mute flex-wrap">
               <span className="px-1.5 py-0.5 rounded bg-edge">{s.platform}</span>
               {s.casino && <span className="px-1.5 py-0.5 rounded bg-felt/60 text-mint">Sponsor: {s.casino}</span>}
@@ -54,31 +55,31 @@ export default async function StreamerDetail({ params }) {
           </div>
         </div>
         {s.bio && <p className="text-sm text-mute mt-3">{s.bio}</p>}
-        {s.title && <p className="text-sm text-slate-400 mt-2 font-mono">Son yayın: "{s.title}"</p>}
+        {s.title && <p className="text-sm text-mute mt-2 font-mono">Son yayın: "{s.title}"</p>}
         {(s.channelUrl || s.telegram || s.twitter || s.youtube) && (
           <div className="flex flex-wrap gap-2 mt-4">
             {s.channelUrl && (
               <a href={s.channelUrl} target="_blank" rel="noopener noreferrer nofollow"
-                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
-                ▶ Yayın kanalı
+                className="inline-flex items-center gap-1.5 text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-bone2 hover:border-mint/50 hover:text-mint transition">
+                <Radio size={13} strokeWidth={1.75} /> Yayın kanalı
               </a>
             )}
             {s.telegram && (
               <a href={s.telegram} target="_blank" rel="noopener noreferrer nofollow"
-                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
-                ✈ Telegram
+                className="inline-flex items-center gap-1.5 text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-bone2 hover:border-mint/50 hover:text-mint transition">
+                <Send size={13} strokeWidth={1.75} /> Telegram
               </a>
             )}
             {s.twitter && (
               <a href={s.twitter} target="_blank" rel="noopener noreferrer nofollow"
-                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
-                𝕏 Twitter
+                className="inline-flex items-center gap-1.5 text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-bone2 hover:border-mint/50 hover:text-mint transition">
+                <Twitter size={13} strokeWidth={1.75} /> Twitter
               </a>
             )}
             {s.youtube && (
               <a href={s.youtube} target="_blank" rel="noopener noreferrer nofollow"
-                className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-slate-300 hover:border-mint/50 hover:text-mint transition">
-                ▶ YouTube
+                className="inline-flex items-center gap-1.5 text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-bone2 hover:border-mint/50 hover:text-mint transition">
+                <Youtube size={13} strokeWidth={1.75} /> YouTube
               </a>
             )}
           </div>
@@ -92,7 +93,7 @@ export default async function StreamerDetail({ params }) {
         </div>
         <div className="panel p-4 text-center">
           <div className="panel-title mb-1">Ortalama</div>
-          <div className="font-mono text-lg text-slate-200">{fmtViewers(metrics.avg)}</div>
+          <div className="font-mono text-lg text-bone2">{fmtViewers(metrics.avg)}</div>
         </div>
         <div className="panel p-4 text-center">
           <div className="panel-title mb-1">Sıralama</div>

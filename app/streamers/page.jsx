@@ -1,6 +1,7 @@
 import { readDB } from "../../lib/store";
-import { StreamerRows } from "../../components/ui";
+import { StreamerRows, PageHeader } from "../../components/ui";
 import { risingStreamers } from "../../lib/snapshot";
+import { TrendBadge } from "../../components/trend";
 import { BRAND } from "../../lib/brand";
 
 export const dynamic = "force-dynamic";
@@ -14,12 +15,11 @@ export default async function Streamers() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold text-slate-50">Kumar yayıncıları</h1>
-        <p className="text-mute text-sm mt-1">
-          Kick ve Twitch üzerinde takip edilen yayıncılar, sponsor casino ve anlık izleyici sayılarıyla.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Canlı takip"
+        title="Kumar yayıncıları"
+        subtitle="Kick ve Twitch üzerinde takip edilen yayıncılar, sponsor casino ve anlık izleyici sayılarıyla."
+      />
 
       <section className="panel p-4">
         <div className="flex items-center justify-between mb-3">
@@ -31,11 +31,9 @@ export default async function Streamers() {
             {rising.map((s, i) => (
               <li key={s.handle} className="flex items-center gap-3 py-2.5">
                 <span className="font-mono text-xs text-mute w-4">{i + 1}</span>
-                <span className="flex-1 text-sm text-slate-200">{s.handle}</span>
+                <span className="flex-1 text-sm text-bone2">{s.handle}</span>
                 <span className="font-mono text-xs text-mute">{s.now.toLocaleString("tr-TR")} izleyici</span>
-                <span className={`font-mono text-xs ${s.change >= 0 ? "text-mint" : "text-chip"}`}>
-                  {s.change >= 0 ? "▲" : "▼"} {Math.abs(s.change)}%
-                </span>
+                <span className="text-xs"><TrendBadge change={s.change} /></span>
               </li>
             ))}
           </ol>

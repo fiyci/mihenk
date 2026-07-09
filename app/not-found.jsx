@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className="max-w-xl mx-auto px-4 py-28 text-center">
       <div className="font-mono text-6xl text-edge mb-4">404</div>
-      <h1 className="text-2xl font-bold text-slate-50">Sayfa bulunamadı</h1>
+      <h1 className="text-2xl font-bold text-bone">Sayfa bulunamadı</h1>
       <p className="text-mute text-sm mt-2">
         Aradığın sayfa taşınmış ya da hiç var olmamış olabilir.
       </p>
