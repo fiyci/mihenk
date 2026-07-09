@@ -83,7 +83,7 @@ export function StreamerReviewCard({ review }) {
         <span className="text-mute">{review.author}</span>
         <span className="text-gold">{"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}</span>
       </div>
-      <p className="text-sm text-slate-300 mt-1">{review.text}</p>
+      <p className="text-sm text-bone2 mt-1">{review.text}</p>
       <div className="flex items-center gap-3 mt-2 text-xs font-mono">
         <button onClick={() => vote("helpful")} disabled={voted} className="text-mute hover:text-mint disabled:opacity-60">▲ Faydalı {votes.helpful}</button>
         <button onClick={() => vote("notHelpful")} disabled={voted} className="text-mute hover:text-chip disabled:opacity-60">▼ {votes.notHelpful}</button>

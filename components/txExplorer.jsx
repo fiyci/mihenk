@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import { Segment, Toggle } from "./controls";
 
 function fmtUsd(n) {
   if (n >= 1e9) return `$${(n / 1e9).toFixed(2)}Mr`;
@@ -37,31 +38,41 @@ export function TxExplorer({ transactions, casinos, chains }) {
   const totalOut = filtered.filter((t) => t.type === "withdrawal").reduce((s, t) => s + t.amountUsd, 0);
   const net = totalIn - totalOut;
 
-  const sel = "bg-ink border border-edge rounded-md px-2 py-1.5 text-sm font-mono focus:outline-none focus:border-mint/60";
+  const sel = "bg-ink border border-edge rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:border-mint/60 transition-colors";
 
   return (
     <div>
       {/* filtreler */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        <select value={chain} onChange={(e) => setChain(e.target.value)} className={sel}>
-          <option value="all">Tüm zincirler</option>
-          {chains.map((c) => <option key={c} value={c}>{c}</option>)}
-        </select>
-        <select value={casino} onChange={(e) => setCasino(e.target.value)} className={sel}>
-          <option value="all">Tüm casinolar</option>
-          {casinos.map((c) => <option key={c} value={c}>{c}</option>)}
-        </select>
-        <select value={type} onChange={(e) => setType(e.target.value)} className={sel}>
-          <option value="all">Yatırım + Çekim</option>
-          <option value="deposit">Sadece yatırım</option>
-          <option value="withdrawal">Sadece çekim</option>
-        </select>
-        <select value={minAmount} onChange={(e) => setMinAmount(Number(e.target.value))} className={sel}>
-          <option value={0}>Min tutar: hepsi</option>
-          <option value={10000}>≥ $10K</option>
-          <option value={100000}>≥ $100K</option>
-          <option value={500000}>≥ $500K (whale)</option>
-        </select>
+      <div className="space-y-3 mb-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <select value={chain} onChange={(e) => setChain(e.target.value)} className={sel}>
+            <option value="all">Tüm zincirler</option>
+            {chains.map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <select value={casino} onChange={(e) => setCasino(e.target.value)} className={sel}>
+            <option value="all">Tüm casinolar</option>
+            {casinos.map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <Segment
+            value={type}
+            onChange={setType}
+            options={[{ value: "all", label: "Hepsi" }, { value: "deposit", label: "Yatırım" }, { value: "withdrawal", label: "Çekim" }]}
+          />
+        </div>
+        <div className="flex flex-wrap items-center gap-4">
+          <span className="eyebrow">Min tutar</span>
+          <Segment
+            value={String(minAmount)}
+            onChange={(v) => setMinAmount(Number(v))}
+            options={[{ value: "0", label: "Hepsi" }, { value: "10000", label: "$10K+" }, { value: "100000", label: "$100K+" }]}
+          />
+          <Toggle
+            checked={minAmount >= 500000}
+            onChange={(on) => setMinAmount(on ? 500000 : 0)}
+            label="🐋 Sadece whale ($500K+)"
+            size="sm"
+          />
+        </div>
       </div>
 
       {/* özet */}
@@ -95,7 +106,7 @@ export function TxExplorer({ transactions, casinos, chains }) {
           <tbody className="divide-y divide-edge font-mono text-xs">
             {filtered.map((t) => (
               <tr key={t.id} className="row-hover">
-                <td className="p-2 text-slate-200">{t.casino}</td>
+                <td className="p-2 text-bone2">{t.casino}</td>
                 <td className="p-2 text-mute">{t.chain}</td>
                 <td className="p-2">
                   <span className={t.type === "deposit" ? "text-mint" : "text-chip"}>

@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Input } from "./controls";
 
 // ---- Oran Dönüştürücü ----
 export function OddsConverter() {
@@ -23,15 +24,12 @@ export function OddsConverter() {
 
   return (
     <div className="panel p-5">
-      <h2 className="font-semibold text-slate-100">Oran Dönüştürücü</h2>
+      <h2 className="font-semibold text-bone">Oran Dönüştürücü</h2>
       <p className="text-sm text-mute mt-1 mb-4">Ondalık oranı gir; kesirli, Amerikan ve olasılık karşılığını gör.</p>
       <label className="text-[10px] font-mono uppercase text-mute">Ondalık oran</label>
-      <input
-        value={decimal}
-        onChange={(e) => setDecimal(e.target.value)}
-        inputMode="decimal"
-        className="w-full bg-ink border border-edge rounded-md px-3 py-2 text-sm font-mono focus:outline-none focus:border-mint/60 mt-1"
-      />
+      <div className="mt-1">
+        <Input value={decimal} onChange={setDecimal} inputMode="decimal" placeholder="2.50" />
+      </div>
       <div className="grid grid-cols-3 gap-2 mt-4 text-center">
         <div className="bg-ink rounded-md p-3">
           <div className="text-[10px] font-mono uppercase text-mute">Kesirli</div>
@@ -43,7 +41,7 @@ export function OddsConverter() {
         </div>
         <div className="bg-ink rounded-md p-3">
           <div className="text-[10px] font-mono uppercase text-mute">Olasılık</div>
-          <div className="font-mono text-slate-200 mt-1">{implied}</div>
+          <div className="font-mono text-bone2 mt-1">{implied}</div>
         </div>
       </div>
       {!valid && decimal !== "" && <p className="text-chip text-xs mt-2">Oran 1.00'den büyük olmalı.</p>}
@@ -66,29 +64,26 @@ export function WagerCalculator() {
 
   return (
     <div className="panel p-5">
-      <h2 className="font-semibold text-slate-100">Bonus Çevrim Hesaplayıcı</h2>
+      <h2 className="font-semibold text-bone">Bonus Çevrim Hesaplayıcı</h2>
       <p className="text-sm text-mute mt-1 mb-4">Çevrim şartını girerek bonusun gerçek beklenen değerini gör.</p>
       <div className="grid grid-cols-3 gap-2">
         <div>
           <label className="text-[10px] font-mono uppercase text-mute">Bonus ($)</label>
-          <input value={bonus} onChange={(e) => setBonus(e.target.value)} inputMode="decimal"
-            className="w-full bg-ink border border-edge rounded-md px-2 py-2 text-sm font-mono mt-1 focus:outline-none focus:border-mint/60" />
+          <div className="mt-1"><Input value={bonus} onChange={setBonus} inputMode="decimal" /></div>
         </div>
         <div>
           <label className="text-[10px] font-mono uppercase text-mute">Çevrim (x)</label>
-          <input value={multiplier} onChange={(e) => setMultiplier(e.target.value)} inputMode="decimal"
-            className="w-full bg-ink border border-edge rounded-md px-2 py-2 text-sm font-mono mt-1 focus:outline-none focus:border-mint/60" />
+          <div className="mt-1"><Input value={multiplier} onChange={setMultiplier} inputMode="decimal" /></div>
         </div>
         <div>
           <label className="text-[10px] font-mono uppercase text-mute">Oyun RTP (%)</label>
-          <input value={rtp} onChange={(e) => setRtp(e.target.value)} inputMode="decimal"
-            className="w-full bg-ink border border-edge rounded-md px-2 py-2 text-sm font-mono mt-1 focus:outline-none focus:border-mint/60" />
+          <div className="mt-1"><Input value={rtp} onChange={setRtp} inputMode="decimal" /></div>
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2 mt-4 text-center">
         <div className="bg-ink rounded-md p-3">
           <div className="text-[10px] font-mono uppercase text-mute">Toplam çevrim</div>
-          <div className="font-mono text-slate-200 mt-1">${totalWager.toLocaleString("tr-TR")}</div>
+          <div className="font-mono text-bone2 mt-1">${totalWager.toLocaleString("tr-TR")}</div>
         </div>
         <div className="bg-ink rounded-md p-3">
           <div className="text-[10px] font-mono uppercase text-mute">Beklenen kayıp</div>

@@ -41,7 +41,7 @@ export function CountUp({ value, fmt, format, duration = 1100, className }) {
 
 // Animasyonlu istatistik kartı — count-up + giriş animasyonu.
 // format: "usd" | "tr" | undefined (fonksiyon geçilmez; server→client kısıtı)
-export function AnimatedStat({ label, value, numeric, format, accent, delay }) {
+export function AnimatedStat({ label, value, numeric, format, accent, delay, inline }) {
   const fmt = format === "usd"
     ? (n) => {
         if (n >= 1e9) return `$${(n / 1e9).toFixed(2)}Mr`;
@@ -52,6 +52,11 @@ export function AnimatedStat({ label, value, numeric, format, accent, delay }) {
     : format === "tr"
     ? (n) => Math.round(n).toLocaleString("tr-TR")
     : null;
+
+  if (inline) {
+    return numeric != null ? <CountUp value={numeric} fmt={fmt} /> : value;
+  }
+
   return (
     <div className={`panel p-4 rise rise-${delay || 1}`}>
       <div className="panel-title mb-2">{label}</div>

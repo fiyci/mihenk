@@ -12,7 +12,7 @@ export function Ticker({ transactions }) {
             <span className={t.type === "deposit" ? "text-mint" : "text-chip"}>
               {t.type === "deposit" ? "▲ YATIRIM" : "▼ ÇEKİM"}
             </span>
-            <span className="text-slate-300">{t.casino}</span>
+            <span className="text-bone2">{t.casino}</span>
             <span className="text-mute">{t.chain}</span>
             <span className="text-gold">{fmtUsd(t.amountUsd)}</span>
           </span>
@@ -34,11 +34,11 @@ export function StatCard({ label, value, sub, accent }) {
 
 export function Panel({ title, action, children }) {
   return (
-    <section className="panel p-4 flex flex-col gap-3">
+    <section className="panel panel-hover p-4 flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <h2 className="panel-title">{title}</h2>
         {action && (
-          <Link href={action.href} className="text-xs text-mint hover:underline font-mono">
+          <Link href={action.href} className="text-xs text-mint font-mono link-underline">
             {action.label} →
           </Link>
         )}
@@ -58,7 +58,7 @@ export function CasinoRows({ casinos, limit }) {
           <span className="w-7 h-7 rounded-full bg-felt grid place-items-center text-mint text-xs font-bold overflow-hidden shrink-0">
             {c.logo ? <img src={c.logo} alt="" className="w-full h-full avatar" /> : c.name.slice(0, 2).toUpperCase()}
           </span>
-          <Link href={`/casinos/${c.slug || c.name.toLowerCase()}`} className="flex-1 text-sm text-slate-200 hover:text-mint transition min-w-0 truncate">
+          <Link href={`/casinos/${c.slug || c.name.toLowerCase()}`} className="flex-1 text-sm text-bone2 hover:text-mint transition min-w-0 truncate">
             {c.name}
           </Link>
           <Sparkline name={c.name} width={70} height={24} />
@@ -81,14 +81,14 @@ export function StreamerRows({ streamers, limit }) {
           </span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 text-sm">
-              <Link href={`/streamers/${s.slug || s.handle.toLowerCase()}`} className="font-medium text-slate-200 hover:text-mint transition truncate">{s.handle}</Link>
+              <Link href={`/streamers/${s.slug || s.handle.toLowerCase()}`} className="font-medium text-bone2 hover:text-mint transition truncate">{s.handle}</Link>
               <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-edge text-mute shrink-0">{s.platform}</span>
               {s.casino && <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-felt/60 text-mint shrink-0 hidden sm:inline">{s.casino}</span>}
               {s.rating > 0 && <span className="text-[10px] font-mono text-gold shrink-0">★ {s.rating}</span>}
             </div>
             <p className="text-xs text-mute truncate">{s.title}</p>
           </div>
-          <span className="font-mono text-xs text-slate-300 shrink-0 flex items-center gap-1.5">
+          <span className="font-mono text-xs text-bone2 shrink-0 flex items-center gap-1.5">
             {s.live && <span className="w-1.5 h-1.5 rounded-full bg-mint pulse-dot" />}
             {fmtViewers(s.viewers)}
           </span>
@@ -115,7 +115,7 @@ export function Donut({ casinos, total }) {
           <span className="font-mono text-[10px] text-mute text-center leading-tight">
             Toplam
             <br />
-            <span className="text-slate-100 text-xs">{fmtUsd(total)}</span>
+            <span className="text-bone text-xs">{fmtUsd(total)}</span>
           </span>
         </div>
       </div>
@@ -123,7 +123,7 @@ export function Donut({ casinos, total }) {
         {top.map((c, i) => (
           <li key={c.id} className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-sm" style={{ background: colors[i] }} />
-            <span className="text-slate-300">{c.name}</span>
+            <span className="text-bone2">{c.name}</span>
             <span className="text-mute">{c.share7d}%</span>
           </li>
         ))}
@@ -136,5 +136,23 @@ export function TrustBadge({ score }) {
   const color = score >= 80 ? "text-mint border-mint/40" : score >= 70 ? "text-gold border-gold/40" : "text-chip border-chip/40";
   return (
     <span className={`font-mono text-xs border rounded-md px-2 py-0.5 ${color}`}>{score}</span>
+  );
+}
+
+// Tutarlı sayfa başlığı — eyebrow + karakterli display tipografi.
+export function PageHeader({ eyebrow, title, subtitle, meta }) {
+  return (
+    <div className="mb-8 md:mb-10">
+      <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[.18em] text-mute">
+        <span className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-mint inline-block" />
+          {eyebrow || "MihenkScore"}
+        </span>
+        {meta && <span>{meta}</span>}
+      </div>
+      <div className="h-px bg-edge mt-3 mb-5" />
+      <h1 className="display-xl text-3xl sm:text-4xl md:text-5xl text-bone">{title}</h1>
+      {subtitle && <p className="text-bone2 text-[15px] mt-3 max-w-2xl leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>{subtitle}</p>}
+    </div>
   );
 }
