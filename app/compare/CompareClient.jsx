@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { Checkbox } from "../../components/controls";
 
 function fmtUsd(n) {
   if (n >= 1e9) return `$${(n / 1e9).toFixed(2)}Mr`;
@@ -44,17 +45,14 @@ export function CompareClient({ casinos, initial }) {
     <div>
       {/* seçim */}
       <div className="panel p-4 mb-6">
-        <div className="panel-title mb-3">Casino seç (en fazla 3)</div>
-        <div className="flex flex-wrap gap-2">
-          {casinos.map((c) => {
-            const on = picked.includes(c.slug);
-            return (
-              <button key={c.slug} onClick={() => toggle(c.slug)}
-                className={`text-sm rounded-md px-3 py-1.5 border transition ${on ? "bg-mint text-ink border-mint font-semibold" : "border-edge text-slate-300 hover:border-mint/50"}`}>
-                {c.name}
-              </button>
-            );
-          })}
+        <div className="flex items-center justify-between mb-3">
+          <div className="panel-title">Casino seç · en fazla 3</div>
+          <span className="text-[10px] font-mono text-mute">{picked.length}/3 seçili</span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-2.5">
+          {casinos.map((c) => (
+            <Checkbox key={c.slug} checked={picked.includes(c.slug)} onChange={() => toggle(c.slug)} label={c.name} />
+          ))}
         </div>
       </div>
 
@@ -70,7 +68,7 @@ export function CompareClient({ casinos, initial }) {
                 <th className="p-3 text-left text-xs font-mono uppercase text-mute">Metrik</th>
                 {cols.map((c) => (
                   <th key={c.slug} className="p-3 text-right">
-                    <Link href={`/casinos/${c.slug}`} className="text-slate-100 hover:text-mint transition font-semibold">{c.name}</Link>
+                    <Link href={`/casinos/${c.slug}`} className="text-bone hover:text-mint transition font-semibold">{c.name}</Link>
                   </th>
                 ))}
               </tr>
@@ -84,7 +82,7 @@ export function CompareClient({ casinos, initial }) {
                     {cols.map((c) => {
                       const isBest = cols.length > 1 && c[r.key] === bestVal && c[r.key] != null;
                       return (
-                        <td key={c.slug} className={`p-3 text-right font-mono ${isBest ? "text-mint font-semibold" : "text-slate-300"}`}>
+                        <td key={c.slug} className={`p-3 text-right font-mono ${isBest ? "text-mint font-semibold" : "text-bone2"}`}>
                           {r.fmt(c[r.key])}
                           {isBest && <span className="ml-1 text-[10px]">▲</span>}
                         </td>

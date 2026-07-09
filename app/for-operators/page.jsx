@@ -1,5 +1,6 @@
 import { BRAND } from "../../lib/brand";
 import Link from "next/link";
+import { Swords, Radio, Link2, Gauge, BellRing, Code2 } from "lucide-react";
 
 export const metadata = {
   title: `Operatörler için — ${BRAND.name}`,
@@ -7,12 +8,12 @@ export const metadata = {
 };
 
 const features = [
-  { title: "Rakip takibi", desc: "Rakip casinoların hacim, pazar payı ve trend değişimini gerçek zamanlı izleyin." },
-  { title: "Yayıncı istihbaratı", desc: "Hangi yayıncı hangi casinoyu tanıtıyor, izleyici trendi nasıl — creator fit skorlarıyla." },
-  { title: "Zincir üstü izleme", desc: "Rakiplerin yatırım/çekim akışını on-chain takip edin, whale hareketlerini yakalayın." },
-  { title: "Sentiment & güven", desc: "Topluluk yorumları ve güven skorlarını kaynak kırılımıyla görün." },
-  { title: "Uyarılar", desc: "Rakip hamlesi, ani hacim değişimi veya olumsuz sentiment sıçraması olduğunda bildirim." },
-  { title: "API erişimi", desc: "Tüm veriyi kendi sistemlerinize entegre edin (Enterprise)." }
+  { Icon: Swords, title: "Rakip takibi", desc: "Rakip casinoların hacim, pazar payı ve trend değişimini gerçek zamanlı izleyin." },
+  { Icon: Radio, title: "Yayıncı istihbaratı", desc: "Hangi yayıncı hangi casinoyu tanıtıyor, izleyici trendi nasıl — creator fit skorlarıyla." },
+  { Icon: Link2, title: "Zincir üstü izleme", desc: "Rakiplerin yatırım/çekim akışını on-chain takip edin, whale hareketlerini yakalayın." },
+  { Icon: Gauge, title: "Sentiment & güven", desc: "Topluluk yorumları ve güven skorlarını kaynak kırılımıyla görün." },
+  { Icon: BellRing, title: "Uyarılar", desc: "Rakip hamlesi, ani hacim değişimi veya olumsuz sentiment sıçraması olduğunda bildirim." },
+  { Icon: Code2, title: "API erişimi", desc: "Tüm veriyi kendi sistemlerinize entegre edin (Enterprise)." }
 ];
 
 const plans = [
@@ -28,18 +29,18 @@ export default function ForOperators() {
         <div className="inline-block text-[10px] font-mono uppercase tracking-wider text-mint border border-mint/40 rounded-full px-3 py-1 mb-4">
           B2B · Operatörler için
         </div>
-        <h1 className="text-4xl font-bold text-slate-50 leading-tight">
-          Rakiplerinizi, yayıncılarınızı ve zincir üstü hacmi tek panelden izleyin
+        <h1 className="display-xl text-4xl sm:text-5xl text-bone">
+          Rakiplerinizi, yayıncılarınızı ve zincir üstü hacmi <span className="italic text-gold" style={{ fontWeight: 400 }}>tek panelden</span> izleyin
         </h1>
-        <p className="text-mute mt-4">
+        <p className="text-bone2 mt-5 text-[15px] leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
           {BRAND.name}, iGaming operatörleri için bağımsız bir pazar istihbaratı platformudur. Karar verirken
           tahmine değil veriye dayanın.
         </p>
-        <div className="flex gap-3 justify-center mt-6">
-          <Link href="/operator" className="bg-mint text-ink font-semibold text-sm rounded-lg px-5 py-2.5 hover:opacity-90 transition">
+        <div className="flex gap-3 justify-center mt-7">
+          <Link href="/operator" className="btn-mint text-sm rounded-lg px-5 py-2.5">
             Demo paneli gör
           </Link>
-          <a href={`mailto:${BRAND.email}`} className="border border-edge text-slate-200 text-sm rounded-lg px-5 py-2.5 hover:border-mint/50 transition">
+          <a href={`mailto:${BRAND.email}`} className="border border-edge text-bone2 text-sm rounded-lg px-5 py-2.5 hover:border-mint/50 transition">
             Teklif iste
           </a>
         </div>
@@ -47,14 +48,17 @@ export default function ForOperators() {
 
       <div className="grid md:grid-cols-3 gap-4 mt-14">
         {features.map((f) => (
-          <div key={f.title} className="panel p-5">
-            <h3 className="font-semibold text-slate-100">{f.title}</h3>
+          <div key={f.title} className="panel panel-hover p-5">
+            <div className="w-10 h-10 rounded-lg bg-mint/10 border border-mint/20 grid place-items-center mb-3">
+              <f.Icon size={18} strokeWidth={1.75} className="text-mint" />
+            </div>
+            <h3 className="font-semibold text-bone">{f.title}</h3>
             <p className="text-sm text-mute mt-2">{f.desc}</p>
           </div>
         ))}
       </div>
 
-      <h2 className="text-2xl font-bold text-slate-50 text-center mt-16 mb-8">Paketler</h2>
+      <h2 className="text-2xl font-bold text-bone text-center mt-16 mb-8">Paketler</h2>
       <div className="grid md:grid-cols-3 gap-4">
         {plans.map((p) => (
           <div key={p.name} className={`panel p-6 flex flex-col ${p.featured ? "border-mint/50 relative" : ""}`}>
@@ -63,7 +67,7 @@ export default function ForOperators() {
                 En popüler
               </span>
             )}
-            <div className="font-semibold text-slate-100">{p.name}</div>
+            <div className="font-semibold text-bone">{p.name}</div>
             <div className="font-mono text-2xl text-gold mt-1">{p.price}</div>
             <ul className="space-y-2 mt-4 flex-1">
               {p.features.map((feat) => (
@@ -72,7 +76,7 @@ export default function ForOperators() {
                 </li>
               ))}
             </ul>
-            <Link href={p.href} className={`mt-6 text-center text-sm rounded-lg py-2.5 transition ${p.featured ? "bg-mint text-ink font-semibold hover:opacity-90" : "border border-edge text-slate-200 hover:border-mint/50"}`}>
+            <Link href={p.href} className={`mt-6 text-center text-sm rounded-lg py-2.5 transition ${p.featured ? "bg-mint text-ink font-semibold hover:opacity-90" : "border border-edge text-bone2 hover:border-mint/50"}`}>
               {p.cta}
             </Link>
           </div>

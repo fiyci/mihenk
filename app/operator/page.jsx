@@ -32,7 +32,7 @@ export default function OperatorPanel() {
     return (
       <div className="max-w-md mx-auto px-4 py-20">
         <div className="panel p-6">
-          <h1 className="text-xl font-bold text-slate-50">Operatör Girişi</h1>
+          <h1 className="text-xl font-bold text-bone">Operatör Girişi</h1>
           <p className="text-sm text-mute mt-1 mb-4">B2B paneline erişmek için giriş yapın. Demo şifresi: <span className="font-mono text-mint">operator123</span></p>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && login()} placeholder="Şifre"
@@ -64,7 +64,7 @@ function OperatorDashboard({ data, onLogout }) {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-50">Operatör Paneli</h1>
+          <h1 className="text-2xl font-bold text-bone">Operatör Paneli</h1>
           <p className="text-xs text-mute font-mono">Demo hesap · örnek veri</p>
         </div>
         <button onClick={onLogout} className="text-xs font-mono text-mute hover:text-chip">Çıkış</button>
@@ -73,7 +73,7 @@ function OperatorDashboard({ data, onLogout }) {
       <div className="flex gap-1 border-b border-edge mb-6 overflow-x-auto">
         {tabs.map(([k, label]) => (
           <button key={k} onClick={() => setTab(k)}
-            className={`px-4 py-2 text-sm whitespace-nowrap border-b-2 -mb-px transition ${tab === k ? "border-mint text-slate-100" : "border-transparent text-mute hover:text-slate-300"}`}>
+            className={`px-4 py-2 text-sm whitespace-nowrap border-b-2 -mb-px transition ${tab === k ? "border-mint text-bone" : "border-transparent text-mute hover:text-bone2"}`}>
             {label}
           </button>
         ))}
@@ -104,10 +104,10 @@ function OperatorDashboard({ data, onLogout }) {
             <tbody className="divide-y divide-edge">
               {data.competitors.map((c) => (
                 <tr key={c.name}>
-                  <td className="p-2 text-slate-200">{c.name}{c.you && <span className="ml-2 text-[10px] font-mono text-mint">SİZ</span>}</td>
+                  <td className="p-2 text-bone2">{c.name}{c.you && <span className="ml-2 text-[10px] font-mono text-mint">SİZ</span>}</td>
                   <td className="p-2 font-mono text-gold">{c.volume}</td>
                   <td className="p-2 font-mono text-mute">{c.share}</td>
-                  <td className="p-2 font-mono text-slate-300">{c.trust}</td>
+                  <td className="p-2 font-mono text-bone2">{c.trust}</td>
                   <td className="p-2 font-mono text-mute">{c.streamers}</td>
                   <td className={`p-2 font-mono ${c.change >= 0 ? "text-mint" : "text-chip"}`}>{c.change >= 0 ? "▲" : "▼"} {Math.abs(c.change)}%</td>
                 </tr>
@@ -124,10 +124,10 @@ function OperatorDashboard({ data, onLogout }) {
             {data.streamers.map((s) => (
               <li key={s.handle} className="py-3 flex items-center gap-3">
                 <div className="flex-1">
-                  <div className="text-sm text-slate-200">{s.handle} <span className="text-[10px] font-mono text-mute">{s.platform}</span></div>
+                  <div className="text-sm text-bone2">{s.handle} <span className="text-[10px] font-mono text-mute">{s.platform}</span></div>
                   <div className="text-xs text-mute">{s.casino} · fit skoru {s.fit}/100</div>
                 </div>
-                <span className="font-mono text-xs text-slate-300">{s.viewers}</span>
+                <span className="font-mono text-xs text-bone2">{s.viewers}</span>
               </li>
             ))}
           </ul>
@@ -138,7 +138,7 @@ function OperatorDashboard({ data, onLogout }) {
         <div className="space-y-2">
           {data.alerts.map((a, i) => (
             <div key={i} className={`panel p-4 border-l-2 ${a.level === "high" ? "border-chip" : a.level === "med" ? "border-gold" : "border-mint"}`}>
-              <div className="text-sm text-slate-200">{a.text}</div>
+              <div className="text-sm text-bone2">{a.text}</div>
               <div className="text-[10px] font-mono text-mute mt-1">{a.time}</div>
             </div>
           ))}
@@ -149,7 +149,7 @@ function OperatorDashboard({ data, onLogout }) {
         <div className="grid md:grid-cols-2 gap-4">
           {data.reports.map((r) => (
             <div key={r.title} className="panel p-5">
-              <h3 className="font-semibold text-slate-100">{r.title}</h3>
+              <h3 className="font-semibold text-bone">{r.title}</h3>
               <p className="text-sm text-mute mt-1">{r.desc}</p>
               <button className="mt-3 text-xs font-mono text-mint hover:underline">İndir (demo) →</button>
             </div>

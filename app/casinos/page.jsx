@@ -1,5 +1,5 @@
 import { readDB, fmtUsd } from "../../lib/store";
-import { TrustBadge } from "../../components/ui";
+import { TrustBadge, PageHeader } from "../../components/ui";
 import Link from "next/link";
 import { BRAND } from "../../lib/brand";
 
@@ -11,8 +11,11 @@ export default async function Casinos() {
   const casinos = [...db.casinos].sort((a, b) => b.volume7d - a.volume7d);
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-slate-50">Casinolar</h1>
-      <p className="text-mute text-sm mt-1">7 günlük on-chain hacme göre sıralı {casinos.length} platform.</p>
+      <PageHeader
+        eyebrow="Sıralama · 7 günlük"
+        title="Casinolar"
+        subtitle={`On-chain hacme göre sıralı ${casinos.length} platform. Bir casinoya tıklayıp detay, metrik ve yorumlarını gör.`}
+      />
       <div className="panel mt-6 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
@@ -35,7 +38,7 @@ export default async function Casinos() {
                     <span className="w-7 h-7 rounded-full bg-felt grid place-items-center text-mint text-xs font-bold">
                       {c.name.slice(0, 2).toUpperCase()}
                     </span>
-                    <Link href={`/casinos/${c.slug || c.name.toLowerCase()}`} className="text-slate-200 font-medium hover:text-mint transition">{c.name}</Link>
+                    <Link href={`/casinos/${c.slug || c.name.toLowerCase()}`} className="text-bone2 font-medium hover:text-mint transition">{c.name}</Link>
                   </div>
                 </td>
                 <td className="p-3 font-mono text-gold">{fmtUsd(c.volume7d)}</td>

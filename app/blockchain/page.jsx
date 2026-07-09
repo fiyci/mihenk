@@ -1,5 +1,5 @@
 import { readDB, fmtUsd } from "../../lib/store";
-import { Panel } from "../../components/ui";
+import { Panel, PageHeader } from "../../components/ui";
 import { Heatmap } from "../../components/heatmap";
 import { TxExplorer } from "../../components/txExplorer";
 import { activityHeatmap } from "../../lib/snapshot";
@@ -15,12 +15,11 @@ export default async function Blockchain() {
   const chainNames = [...new Set(db.transactions.map((t) => t.chain))].sort();
   return (
     <div className="max-w-6xl mx-auto px-4 py-10 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-slate-50">Blockchain aktivitesi</h1>
-        <p className="text-mute text-sm mt-1">
-          Takip edilen sıcak cüzdanlara giren/çıkan stablecoin transferleri. Zincir, casino, tip ve tutara göre filtreleyin.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="On-chain forensik"
+        title="Blockchain aktivitesi"
+        subtitle="Takip edilen sıcak cüzdanlara giren/çıkan stablecoin transferleri. Zincir, casino, tip ve tutara göre filtreleyin."
+      />
       <Panel title="İşlem gezgini">
         <TxExplorer transactions={db.transactions} casinos={casinoNames} chains={chainNames} />
       </Panel>

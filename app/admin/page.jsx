@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useMemo } from "react";
+import { Play } from "lucide-react";
 import { BRAND } from "../../lib/brand";
 
 const TABS = [
@@ -61,7 +62,7 @@ export default function Admin() {
     return (
       <div className="max-w-sm mx-auto px-4 py-24">
         <div className="panel p-6">
-          <h1 className="text-xl font-bold text-slate-50 mb-1">Operatör girişi</h1>
+          <h1 className="text-xl font-bold text-bone mb-1">Operatör girişi</h1>
           <p className="text-xs text-mute mb-4 font-mono">Yönetim paneline erişmek için giriş yap.</p>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && login()} placeholder="Parola"
@@ -77,7 +78,7 @@ export default function Admin() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-50">Yönetim paneli</h1>
+          <h1 className="text-2xl font-bold text-bone">Yönetim paneli</h1>
           <p className="text-xs text-mute font-mono">{BRAND.name} operatör kontrol merkezi</p>
         </div>
         <button onClick={logout} className="text-xs font-mono border border-edge rounded-md px-3 py-1.5 text-mute hover:text-chip hover:border-chip/50">Çıkış yap</button>
@@ -104,7 +105,7 @@ export default function Admin() {
 
 function NavBtn({ active, onClick, children }) {
   return (
-    <button onClick={onClick} className={`text-sm rounded-md px-3 py-1.5 border flex items-center ${active ? "bg-mint text-ink border-mint font-semibold" : "border-edge text-mute hover:text-slate-200"}`}>
+    <button onClick={onClick} className={`text-sm rounded-md px-3 py-1.5 border flex items-center ${active ? "bg-mint text-ink border-mint font-semibold" : "border-edge text-mute hover:text-bone2"}`}>
       {children}
     </button>
   );
@@ -164,17 +165,17 @@ function Overview({ stats, reload, onJump }) {
           <div className="panel-title mb-3">Veri çekme kontrolü</div>
           <p className="text-xs text-mute mb-3">Cron otomatik çalışır; buradan elle de tetikleyebilirsin.</p>
           <div className="flex gap-2">
-            <button onClick={() => runCron("streamers")} disabled={running} className="flex-1 bg-edge hover:bg-edge/70 text-slate-200 text-sm rounded-md py-2 disabled:opacity-50">
-              {running === "streamers" ? "Çekiliyor…" : "▶ Yayıncıları çek"}
+            <button onClick={() => runCron("streamers")} disabled={running} className="flex-1 inline-flex items-center justify-center gap-1.5 bg-edge hover:bg-edge/70 text-bone2 text-sm rounded-md py-2 disabled:opacity-50">
+              {running === "streamers" ? "Çekiliyor…" : <><Play size={13} strokeWidth={2} /> Yayıncıları çek</>}
             </button>
-            <button onClick={() => runCron("chain")} disabled={running} className="flex-1 bg-edge hover:bg-edge/70 text-slate-200 text-sm rounded-md py-2 disabled:opacity-50">
-              {running === "chain" ? "Çekiliyor…" : "▶ Zinciri tara"}
+            <button onClick={() => runCron("chain")} disabled={running} className="flex-1 inline-flex items-center justify-center gap-1.5 bg-edge hover:bg-edge/70 text-bone2 text-sm rounded-md py-2 disabled:opacity-50">
+              {running === "chain" ? "Çekiliyor…" : <><Play size={13} strokeWidth={2} /> Zinciri tara</>}
             </button>
           </div>
           {runMsg && <p className="text-xs text-mint font-mono mt-3 leading-relaxed">{runMsg}</p>}
           <div className="mt-4 pt-3 border-t border-edge grid grid-cols-2 gap-2 text-xs font-mono text-mute">
-            <span>İzlenen cüzdan: <b className="text-slate-200">{c.wallets}</b></span>
-            <span>Kick kanalı: <b className="text-slate-200">{c.kickChannels}</b></span>
+            <span>İzlenen cüzdan: <b className="text-bone2">{c.wallets}</b></span>
+            <span>Kick kanalı: <b className="text-bone2">{c.kickChannels}</b></span>
           </div>
         </div>
 
@@ -184,7 +185,7 @@ function Overview({ stats, reload, onJump }) {
             {stats.recentTx.map((t) => (
               <li key={t.id} className="flex items-center gap-2 py-2 text-xs font-mono">
                 <span className={t.type === "deposit" ? "text-mint" : "text-chip"}>{t.type === "deposit" ? "▲" : "▼"}</span>
-                <span className="text-slate-200">{t.casino}</span>
+                <span className="text-bone2">{t.casino}</span>
                 <span className="text-mute">{t.chain}</span>
                 <span className="text-gold ml-auto">{fmtUsd(t.amountUsd)}</span>
               </li>
@@ -210,7 +211,7 @@ function Overview({ stats, reload, onJump }) {
             placeholder="0x… veya T…"
             className="flex-1 bg-ink border border-edge rounded-md px-2 py-2 text-sm font-mono focus:outline-none focus:border-mint/60" />
           <button onClick={exploreWallet} disabled={wState.busy}
-            className="bg-edge hover:bg-edge/70 text-slate-200 text-sm rounded-md px-4 disabled:opacity-50">
+            className="bg-edge hover:bg-edge/70 text-bone2 text-sm rounded-md px-4 disabled:opacity-50">
             {wState.busy ? "…" : "Keşfet"}
           </button>
         </div>
@@ -232,7 +233,7 @@ function Overview({ stats, reload, onJump }) {
                 <tbody className="divide-y divide-edge">
                   {wState.related.map((r) => (
                     <tr key={r.address}>
-                      <td className="p-2 text-slate-300">{r.short}</td>
+                      <td className="p-2 text-bone2">{r.short}</td>
                       <td className="p-2 text-mute">{r.count}</td>
                       <td className="p-2 text-gold">${r.volume.toLocaleString("tr-TR")}</td>
                       <td className="p-2 text-right">
@@ -256,7 +257,7 @@ function Overview({ stats, reload, onJump }) {
         <ul className="divide-y divide-edge">
           {(stats.log || []).map((l) => (
             <li key={l.id} className="flex items-center justify-between py-2 text-xs">
-              <span className="text-slate-300">{l.message}</span>
+              <span className="text-bone2">{l.message}</span>
               <span className="text-mute font-mono shrink-0 ml-3">{timeAgo(l.ts)}</span>
             </li>
           ))}
@@ -271,7 +272,7 @@ function StatBox({ label, value, sub, accent, onClick }) {
   return (
     <button onClick={onClick} className="panel p-4 text-left hover:border-mint/40 transition">
       <div className="panel-title mb-2">{label}</div>
-      <div className={`font-mono text-2xl font-semibold ${accent || "text-slate-100"}`}>{value}</div>
+      <div className={`font-mono text-2xl font-semibold ${accent || "text-bone"}`}>{value}</div>
       {sub && <div className="text-[10px] text-mute mt-1 font-mono">{sub}</div>}
     </button>
   );
@@ -407,7 +408,7 @@ function Manager({ tab, onChange, onLogout }) {
                 className="flex-1 bg-ink border border-edge rounded-md px-2 py-1.5 text-sm font-mono focus:outline-none focus:border-mint/60"
               />
               <button onClick={runImport} disabled={importState.busy}
-                className="bg-edge hover:bg-edge/70 text-slate-200 text-xs rounded-md px-3 disabled:opacity-50">
+                className="bg-edge hover:bg-edge/70 text-bone2 text-xs rounded-md px-3 disabled:opacity-50">
                 {importState.busy ? "…" : "Çek"}
               </button>
             </div>
@@ -485,7 +486,7 @@ function Manager({ tab, onChange, onLogout }) {
                   <tr key={item.id} className={selected.has(item.id) ? "bg-mint/5" : ""}>
                     <td className="p-2"><input type="checkbox" checked={selected.has(item.id)} onChange={() => toggle(item.id)} /></td>
                     {tab.fields.slice(0, 4).map((f) => (
-                      <td key={f} className="p-2 text-slate-300 max-w-[160px] truncate">
+                      <td key={f} className="p-2 text-bone2 max-w-[160px] truncate">
                         {BOOLEAN.has(f)
                           ? (item[f] ? <span className="text-mint">✓</span> : <span className="text-mute">✗</span>)
                           : String(item[f] ?? "")}

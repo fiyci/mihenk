@@ -1,5 +1,6 @@
 import { BRAND } from "../../lib/brand";
 import { OddsConverter, WagerCalculator } from "../../components/tools";
+import { PageHeader } from "../../components/ui";
 
 export const metadata = {
   title: `Araçlar — Bonus Hesaplayıcı, Oran Dönüştürücü | ${BRAND.name}`,
@@ -16,10 +17,11 @@ const comingSoon = [
 export default function Araclar() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-slate-50">Araçlar</h1>
-      <p className="text-mute text-sm mt-1">
-        Oyuncular için ücretsiz hesaplayıcılar ve yardımcı araçlar. Yeni araçlar sürekli ekleniyor.
-      </p>
+      <PageHeader
+        eyebrow="Oyuncu araçları"
+        title="Araçlar"
+        subtitle="Oyuncular için ücretsiz hesaplayıcılar ve yardımcı araçlar. Yeni araçlar sürekli ekleniyor."
+      />
 
       <div className="grid md:grid-cols-2 gap-4 mt-8">
         <OddsConverter />
@@ -33,7 +35,7 @@ export default function Araclar() {
             <span className="absolute top-4 right-4 text-[10px] font-mono uppercase tracking-wider text-gold border border-gold/40 rounded px-2 py-0.5">
               çok yakında
             </span>
-            <h3 className="font-semibold text-slate-100 pr-24">{t.name}</h3>
+            <h3 className="font-semibold text-bone pr-24">{t.name}</h3>
             <p className="text-sm text-mute mt-2">{t.desc}</p>
           </div>
         ))}

@@ -43,7 +43,7 @@ export default async function CasinoDetail({ params }) {
             {c.logo ? <img src={c.logo} alt={c.name} className="w-full h-full object-cover" /> : c.name.slice(0, 2).toUpperCase()}
           </span>
           <div>
-            <h1 className="text-3xl font-bold text-slate-50">{c.name}</h1>
+            <h1 className="display-xl text-4xl md:text-5xl text-bone">{c.name}</h1>
             <p className="text-xs text-mute font-mono mt-0.5">
               7g hacim {fmtUsd(c.volume7d)} · pazar payı {c.share7d}% · {(c.chains || []).join(" · ") || "—"}
             </p>
@@ -61,7 +61,7 @@ export default async function CasinoDetail({ params }) {
         </div>
         <div className="panel p-4 text-center">
           <div className="panel-title mb-1">Ortalama</div>
-          <div className="font-mono text-lg text-slate-200">{fmtUsd(metrics.avg30)}</div>
+          <div className="font-mono text-lg text-bone2">{fmtUsd(metrics.avg30)}</div>
         </div>
         <div className="panel p-4 text-center">
           <div className="panel-title mb-1">Sıralama</div>

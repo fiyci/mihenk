@@ -1,6 +1,7 @@
 import { readDB, fmtUsd } from "../../lib/store";
 import { casinoRank } from "../../lib/snapshot";
 import { BRAND } from "../../lib/brand";
+import { PageHeader } from "../../components/ui";
 import { CompareClient } from "./CompareClient";
 
 export const dynamic = "force-dynamic";
@@ -29,10 +30,11 @@ export default async function Compare({ searchParams }) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold text-slate-50">Casino karşılaştırma</h1>
-      <p className="text-mute text-sm mt-1 mb-6">
-        İki veya üç casinoyu seçip metriklerini yan yana görün. Karar verirken tahmine değil veriye dayanın.
-      </p>
+      <PageHeader
+        eyebrow="Yan yana analiz"
+        title="Casino karşılaştırma"
+        subtitle="İki veya üç casinoyu seçip metriklerini yan yana görün. Karar verirken tahmine değil veriye dayanın."
+      />
       <CompareClient casinos={casinos} initial={selected} />
     </div>
   );
