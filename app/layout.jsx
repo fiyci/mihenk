@@ -2,7 +2,8 @@ import "./globals.css";
 import Link from "next/link";
 import { BRAND } from "../lib/brand";
 import { Ambient } from "../components/ambient";
-import { NavBar } from "../components/navbar";
+import { NavBar } from "../components/navbar2";
+import { Sidebar } from "../components/sidebar";
 
 export const metadata = {
   title: `${BRAND.name} — ${BRAND.tagline}`,
@@ -31,7 +32,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -39,7 +40,8 @@ export default function RootLayout({ children }) {
         <Ambient />
         <div className="stack flex flex-col min-h-screen">
           <NavBar brand={BRAND.name} links={navLinks} />
-          <main className="flex-1">{children}</main>
+          <Sidebar />
+          <main className="flex-1 xl:pr-[250px]">{children}</main>
         <footer className="border-t border-edge mt-16">
           <div className="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-8 text-sm text-mute">
             <div>

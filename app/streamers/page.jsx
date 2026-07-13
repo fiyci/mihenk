@@ -2,6 +2,7 @@ import { readDB } from "../../lib/store";
 import { StreamerRows, PageHeader } from "../../components/ui";
 import { risingStreamers } from "../../lib/snapshot";
 import { TrendBadge } from "../../components/trend";
+import { StreamerSearch } from "../../components/streamerSearch";
 import { BRAND } from "../../lib/brand";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +21,8 @@ export default async function Streamers() {
         title="Kumar yayıncıları"
         subtitle="Kick ve Twitch üzerinde takip edilen yayıncılar, sponsor casino ve anlık izleyici sayılarıyla."
       />
+
+      <StreamerSearch counts={{ kick: db.streamers.filter((s) => s.platform === "kick").length, twitch: db.streamers.filter((s) => s.platform === "twitch").length }} />
 
       <section className="panel p-4">
         <div className="flex items-center justify-between mb-3">

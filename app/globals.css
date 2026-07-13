@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --ink: #0A1310;
-  --panel: #0F1A15;
-  --edge: #1F2C25;
-  --felt: #0C3327;
-  --mint: #34C48D;
-  --gold: #D9A94C;
-  --chip: #C74A44;
-  --mute: #7B877E;
-  --bone: #E8E2D2;
-  --bone2: #C4BFB0;
+  --ink: #070A08;
+  --panel: #0D1210;
+  --edge: #1D2521;
+  --felt: #0E2C1E;
+  --mint: #22C55E;
+  --gold: #EAB308;
+  --chip: #EF4444;
+  --mute: #79857D;
+  --bone: #F2F5F3;
+  --bone2: #AEB8B1;
 }
 
 * { -webkit-tap-highlight-color: transparent; }
@@ -40,9 +40,9 @@ body {
 
 /* başlıklar Fraunces — editoryal serif otoritesi, optik boyutlama */
 h1, h2, h3, h4, .font-display {
-  font-family: 'Fraunces', 'Times New Roman', serif;
-  letter-spacing: -.01em;
-  font-optical-sizing: auto;
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: -.025em;
+  font-weight: 700;
 }
 
 /* mono veriler — sekmeli hizalama (sayılar dikey hizalanır) */
@@ -51,7 +51,7 @@ h1, h2, h3, h4, .font-display {
   font-feature-settings: "tnum", "zero"; /* eşit genişlik rakam + sıfır çentiği */
 }
 
-::selection { background: rgba(52,196,141,.32); color: #E8E2D2; }
+::selection { background: rgba(34,197,94,.32); color: #F2F5F3; }
 
 /* ince, markaya uygun scrollbar */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
@@ -108,7 +108,7 @@ h1, h2, h3, h4, .font-display {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
 }
 .panel-hover:hover {
-  border-color: rgba(52,196,141,.32);
+  border-color: rgba(34,197,94,.32);
   transform: translateY(-2px);
   box-shadow: 0 12px 40px -12px rgba(0,0,0,.6), 0 0 0 1px rgba(47,191,143,.06);
 }
@@ -117,13 +117,13 @@ h1, h2, h3, h4, .font-display {
 .stat-num {
   @apply text-2xl md:text-3xl font-semibold;
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  color: #E8E2D2; letter-spacing: -.02em;
+  color: #F2F5F3; letter-spacing: -.02em;
   font-feature-settings: "tnum", "zero";
   font-variant-numeric: tabular-nums;
 }
 
 /* ============ TİPOGRAFİ VURGUSU ============ */
-.display-xl { letter-spacing: -.02em; line-height: 1.0; font-weight: 600; font-optical-sizing: auto; }
+.display-xl { letter-spacing: -.04em; line-height: 1.02; font-weight: 800; }
 .eyebrow {
   font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase;
   letter-spacing: .2em; color: var(--mute); font-weight: 500;
