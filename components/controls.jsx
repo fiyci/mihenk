@@ -31,7 +31,7 @@ export function Toggle({ checked, onChange, label, size = "md" }) {
           style={{
             transform: `translateY(-50%) translateX(${checked ? shift : "0px"})`,
             background: checked ? "var(--mint)" : "var(--mute)",
-            boxShadow: checked ? "0 0 10px -1px rgba(47,191,143,.8)" : "none"
+            boxShadow: checked ? "0 0 10px -1px rgba(34,197,94,.8)" : "none"
           }}
         />
       </span>
@@ -54,7 +54,7 @@ export function Checkbox({ checked, onChange, label }) {
       />
       <span
         className={`relative w-5 h-5 rounded-md border transition-all duration-200 grid place-items-center
-          ${checked ? "bg-mint border-mint shadow-[0_0_10px_-2px_rgba(47,191,143,.7)]" : "bg-ink border-edge group-hover:border-mint/50"}
+          ${checked ? "bg-mint border-mint shadow-[0_0_10px_-2px_rgba(34,197,94,.7)]" : "bg-ink border-edge group-hover:border-mint/50"}
           peer-focus-visible:ring-2 peer-focus-visible:ring-mint peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-ink`}
       >
         <svg
@@ -74,7 +74,7 @@ export function Input({ value, onChange, placeholder, type = "text", icon, prefi
   return (
     <div
       className={`group relative flex items-center bg-ink border border-edge rounded-lg transition-all duration-200
-        focus-within:border-mint/60 focus-within:shadow-[0_0_0_3px_rgba(47,191,143,.12)] ${className}`}
+        focus-within:border-mint/60 focus-within:shadow-[0_0_0_3px_rgba(34,197,94,.12)] ${className}`}
     >
       {icon && <span className="pl-3 text-mute group-focus-within:text-mint transition-colors">{icon}</span>}
       {prefix && <span className="pl-3 text-mute font-mono text-sm">{prefix}</span>}
@@ -103,7 +103,7 @@ export function Segment({ options, value, onChange }) {
             key={val}
             onClick={() => onChange?.(val)}
             className={`px-3 py-1.5 text-xs font-mono rounded-md transition-all duration-200
-              ${active ? "bg-mint text-ink font-semibold shadow-[0_0_12px_-4px_rgba(47,191,143,.6)]" : "text-mute hover:text-bone2"}`}
+              ${active ? "bg-mint text-ink font-semibold shadow-[0_0_12px_-4px_rgba(34,197,94,.6)]" : "text-mute hover:text-bone2"}`}
           >
             {label}
           </button>

@@ -17,7 +17,7 @@ export function Heatmap({ grid, max, hasData }) {
     const t = v / max;
     // koyu yeşilden parlak mint'e
     const a = 0.15 + t * 0.85;
-    return `rgba(47,191,143,${a.toFixed(2)})`;
+    return `rgba(34,197,94,${a.toFixed(2)})`;
   }
   return (
     <div className="overflow-x-auto">
@@ -47,7 +47,7 @@ export function Heatmap({ grid, max, hasData }) {
           <span>az</span>
           <div className="flex gap-0.5">
             {[0.2, 0.4, 0.6, 0.8, 1].map((t) => (
-              <div key={t} className="w-3 h-3 rounded-[2px]" style={{ background: `rgba(47,191,143,${t})` }} />
+              <div key={t} className="w-3 h-3 rounded-[2px]" style={{ background: `rgba(34,197,94,${t})` }} />
             ))}
           </div>
           <span>çok</span>

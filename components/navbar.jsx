@@ -12,7 +12,7 @@ export function NavBar({ brand, links }) {
     <header className="border-b border-edge sticky top-0 z-40 bg-ink/80 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <span className="w-7 h-7 rounded-md bg-gradient-to-br from-gold to-[#9d7628] grid place-items-center text-ink text-sm shadow-[0_0_16px_-6px_rgba(217,169,76,.7)] group-hover:shadow-[0_0_20px_-4px_rgba(217,169,76,.9)] transition-shadow" style={{ fontFamily: "'Fraunces', serif", fontWeight: 600 }}>
+          <span className="w-7 h-7 rounded-md bg-gradient-to-br from-gold to-[#9d7628] grid place-items-center text-ink text-sm shadow-[0_0_16px_-6px_rgba(234,179,8,.7)] group-hover:shadow-[0_0_20px_-4px_rgba(234,179,8,.9)] transition-shadow" style={{ fontFamily: "'Fraunces', serif", fontWeight: 600 }}>
             M
           </span>
           <span className="tracking-tight text-bone text-[17px]" style={{ fontFamily: "'Fraunces', serif", fontWeight: 600 }}>
